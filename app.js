@@ -139,14 +139,15 @@ searchBtn.addEventListener('click', function () {
   const search = document.getElementById('search');
   if(search.value==0){
     numberOfResult.style.display = 'none';
+    gallery.innerHTML='';
     const alertDiv = document.createElement('div');
     alertDiv.className = 'alert';
     const alertMessage = `
         <p class="alertMessage"> PLEASE ENTER A VALID INPUT </p>
     `;
     alertDiv.innerHTML = alertMessage;
+    alertContainer.style.display = 'block';
     alertContainer.appendChild(alertDiv);
-    gallery.innerHTML='';
   }
   else{
     alertContainer.style.display = 'none';
