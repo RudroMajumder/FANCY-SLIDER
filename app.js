@@ -1,5 +1,6 @@
 const imagesArea = document.querySelector('.images');
 const gallery = document.querySelector('.gallery');
+const numberOfResult = document.getElementById('numberOfResult');
 const searchItem = document.getElementById('search');
 const galleryHeader = document.querySelector('.gallery-header');
 const searchBtn = document.getElementById('search-btn');
@@ -15,25 +16,34 @@ let sliders = [];
 const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images 
-const showImages = (images) => {
+const showImages = (images,length) => {
+  numberOfResult.style.display = 'flex';
+  numberOfResult.innerHTML = "Number of Match Found: "+length ;
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
   // show gallery title
   galleryHeader.style.display = 'flex';
   images.forEach(image => {
+    
     let div = document.createElement('div');
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
   })
   toggleSpinner(false);
+  // const resultDiv = document.createElement('section');
+  // resultDiv.innerHTML =`
+  //   <h3> ${length} </h3>
+  // ` ;
+  // numberOfResult.appendChild( resultDiv) 
+
 }
 
 const getImages = (query) => {
   toggleSpinner(true);
   fetch(`https://pixabay.com/api/?key=${KEY}&q=${query}&image_type=photo`)
     .then(response => response.json())
-    .then(data => showImages(data.hits))
+    .then(data => showImages(data.hits,data.hits.length))
     .catch(err => console.log(err))
 }
 
@@ -122,6 +132,9 @@ searchBtn.addEventListener('click', function () {
   const search = document.getElementById('search');
   getImages(search.value)
   sliders.length = 0;
+  sliderContainer.innerHTML = '';
+  numberOfResult.innerHTML = "" ;
+  numberOfResult.style.display = "block" ;
 })
 searchItem.addEventListener("keypress", function(event) {
   if (event.keyCode === 13) {
