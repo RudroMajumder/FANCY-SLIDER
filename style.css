@@ -54,7 +54,18 @@ img {
 .main {
   display: none;
 }
-
+.alert{
+  background-color: lightgray;
+  margin: 0 auto;
+  width: 40%;
+  padding: 10px;
+  display: block;
+}
+.alertMessage{
+  font-size: 20px;
+  text-align: center;
+  padding-top:10px ;
+}
 @media (max-width: 767px) {
   .justify-content-around.align-items-center.mt-3.gallery-header.mb-2 {
     flex-direction: column;

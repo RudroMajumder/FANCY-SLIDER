@@ -6,6 +6,7 @@ const galleryHeader = document.querySelector('.gallery-header');
 const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
+const alertContainer = document.getElementById('alert');
 // selected image 
 let sliders = [];
 
@@ -21,6 +22,18 @@ const showImages = (images,length) => {
   numberOfResult.innerHTML = "Number of Match Found: "+length ;
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
+
+  if(length === 0){
+        numberOfResult.style.display = 'none';
+        const alertDiv = document.createElement('div');
+        alertDiv.className = 'alert';
+        const alertMessage = `
+            <p class="alertMessage"> OOPS! NO MATCH FOUND </p>
+        `;
+        alertDiv.innerHTML = alertMessage;
+        alertContainer.appendChild(alertDiv);
+  }
+
   // show gallery title
   galleryHeader.style.display = 'flex';
   images.forEach(image => {
@@ -31,11 +44,6 @@ const showImages = (images,length) => {
     gallery.appendChild(div)
   })
   toggleSpinner(false);
-  // const resultDiv = document.createElement('section');
-  // resultDiv.innerHTML =`
-  //   <h3> ${length} </h3>
-  // ` ;
-  // numberOfResult.appendChild( resultDiv) 
 
 }
 
@@ -129,11 +137,26 @@ searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'block';
   clearInterval(timer);
   const search = document.getElementById('search');
-  getImages(search.value)
-  sliders.length = 0;
-  sliderContainer.innerHTML = '';
-  numberOfResult.innerHTML = "" ;
-  numberOfResult.style.display = "block" ;
+  if(search.value==0){
+    numberOfResult.style.display = 'none';
+    const alertDiv = document.createElement('div');
+    alertDiv.className = 'alert';
+    const alertMessage = `
+        <p class="alertMessage"> PLEASE ENTER A VALID INPUT </p>
+    `;
+    alertDiv.innerHTML = alertMessage;
+    alertContainer.appendChild(alertDiv);
+    gallery.innerHTML='';
+  }
+  else{
+    alertContainer.style.display = 'none';
+    getImages(search.value)
+    sliders.length = 0;
+    sliderContainer.innerHTML = '';
+    numberOfResult.innerHTML = "" ;
+    numberOfResult.style.display = "block" ;
+    
+  }
 })
 searchItem.addEventListener("keypress", function(event) {
   if (event.keyCode === 13) {
