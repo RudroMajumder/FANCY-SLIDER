@@ -65,6 +65,7 @@ const selectItem = (event, img) => {
   } 
   else {
     element.classList.remove('added');
+    sliders.splice(item,1);
   }
 }
 // selectItem(event, img);
@@ -90,6 +91,7 @@ const createSlider = () => {
   imagesArea.style.display = 'none';
   let duration = document.getElementById('duration').value || 1000;
   if( duration < 0 ){
+    alert("You can't put negative value,Duration has been set to default");
     duration = 1000;
   }
   sliders.forEach(slide => {
