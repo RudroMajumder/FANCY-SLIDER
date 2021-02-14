@@ -32,6 +32,7 @@ const showImages = (images,length) => {
         `;
         alertDiv.innerHTML = alertMessage;
         alertContainer.appendChild(alertDiv);
+        alertContainer.style.display = 'block';
   }
 
   // show gallery title
@@ -137,6 +138,9 @@ const changeSlide = (index) => {
 
 searchBtn.addEventListener('click', function () {
   document.querySelector('.main').style.display = 'block';
+  sliderContainer.innerHTML = '';
+  numberOfResult.innerHTML = "" ;
+  alertContainer.innerHTML = "" ;
   clearInterval(timer);
   const search = document.getElementById('search');
   if(search.value==0){
@@ -155,8 +159,6 @@ searchBtn.addEventListener('click', function () {
     alertContainer.style.display = 'none';
     getImages(search.value)
     sliders.length = 0;
-    sliderContainer.innerHTML = '';
-    numberOfResult.innerHTML = "" ;
     numberOfResult.style.display = "block" ;
     
   }
